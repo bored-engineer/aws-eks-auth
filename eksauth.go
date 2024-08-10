@@ -84,11 +84,11 @@ func NewFromPresignClient(client *sts.PresignClient, clusterName string) oauth2.
 }
 
 // NewFromClient creates a new oauth2.TokenSource from a sts.Client and an EKS cluster name
-func NewFromClient(client *sts.Client, clusterName string) oauth2.TokenSource {
-	return NewFromPresignClient(sts.NewPresignClient(client), clusterName)
+func NewFromClient(client *sts.Client, clusterName string, optFns ...func(*sts.PresignOptions)) oauth2.TokenSource {
+	return NewFromPresignClient(sts.NewPresignClient(client, optFns...), clusterName)
 }
 
 // NewFromConfig creates a new oauth2.TokenSource from an aws.Config and an EKS cluster name
-func NewFromConfig(cfg aws.Config, clusterName string) oauth2.TokenSource {
-	return NewFromClient(sts.NewFromConfig(cfg), clusterName)
+func NewFromConfig(cfg aws.Config, clusterName string, optFns ...func(*sts.Options)) oauth2.TokenSource {
+	return NewFromClient(sts.NewFromConfig(cfg, optFns...), clusterName)
 }
