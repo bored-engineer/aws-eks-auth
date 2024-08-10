@@ -4,7 +4,7 @@ A straight-forward Golang implementation of the [aws-iam-authenticator](https://
 ## Why?
 The [aws-iam-authenticator/pkg/token](https://pkg.go.dev/github.com/kubernetes-sigs/aws-iam-authenticator/pkg/token) package makes use of the [AWS Golang v1 SDK](https://github.com/aws/aws-sdk-go) which has entered [maintenance mode](https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-go-v1-on-july-31-2025) as of 7/31/2024 ([issue #736](https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/736)), this library utilizes the [AWS Golang v2 SDK](https://github.com/aws/aws-sdk-go-v2) to generate tokens. 
 
-Additionally, the [aws-iam-authenticator/pkg/token](https://pkg.go.dev/github.com/kubernetes-sigs/aws-iam-authenticator/pkg/token) package does not properly handle short-lived AWS credentials ([issue #590](https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/590)), forcing users to to use less secure authentication methods like static AWS IAM users or avoid caching tokens causing unnecessary latency from each request.
+Additionally, the [aws-iam-authenticator/pkg/token](https://pkg.go.dev/github.com/kubernetes-sigs/aws-iam-authenticator/pkg/token) package does not properly handle short-lived AWS credentials ([issue #590](https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/590)). This requires clients to use less secure authentication methods like static AWS IAM users or avoid any caching of tokens adding unnecessary latency to each Kubernetes request.
 
 ## Usage
 ```go
